@@ -1,6 +1,9 @@
 use std::cell::Cell;
 use std::cell::RefCell;
 
+/* Include cliparser to parse the CLI option */
+mod cliparser;
+
 #[derive(Debug, Clone)] // This will help to print the object directly, instead of implementing display method
 #[derive(Default)] // Derives the Default trait for the struct
 struct TodoItems {
@@ -11,9 +14,9 @@ struct TodoItems {
 }
 
 impl TodoItems {
-    fn new_item(s_no: u32) -> Self {
+    fn new_item(sno: u32) -> Self {
         TodoItems {
-            s_no: s_no,
+            s_no: sno,
             ..Default::default()
         }
     }
@@ -53,10 +56,15 @@ impl TodoItems {
     }
 }
 
-fn main() {
+fn create_todo_items(one_liner: String, details: String) {
+    println!("called with {}, details: {}", one_liner, details);
     let item = TodoItems::new_item(1);
+    item.update_oneliner(one_liner);
+    item.update_detail(details);
     item.update_status(false);
-    item.update_oneliner("go to schoool".to_string());
-    item.update_detail("do homework first....".to_string());
-    item.display()
+    item.display();
+}
+
+fn main() {
+    cliparser::cli_parser(create_todo_items);
 }
