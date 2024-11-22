@@ -1,0 +1,7 @@
+## Followed the tutorial https://developerlife.com/2024/01/13/write-simple-netcat-in-rust/
+
+1. cargo add clap -F derive
+# 2 & 3 for pretty logging
+2. cargo add femme
+3. cargo add log 
+4.
