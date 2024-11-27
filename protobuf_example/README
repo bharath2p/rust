@@ -1,0 +1,6 @@
+1. apt-get install protobuf-compiler
+2. cargo install protobuf-codegen
+# Make sure that the PATH is pointing to ~/.cargo/bin
+3. protoc --rs_out src/ addressbook.proto 
+4. cargo add protobuf
+5. Update main.rs to include the protobufs...
