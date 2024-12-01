@@ -1,0 +1,12 @@
+Real time data streaming:
+------------------------
+1. TCP based communication between client and server.
+2. Use protobufs to share the data to server
+3. Server places the recevied messages in the kafka
+4. These messages are picked up, processed.
+
+Technologies:
+1. TCP 
+2. Kafka
+3. Protobufs
+
