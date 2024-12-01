@@ -1,17 +1,28 @@
-use std::io::{BufRead, BufReader};
+use crate::protos;
+use std::io::BufReader;
+use std::io::Read;
 use std::net::TcpStream;
+
+use protobuf::Message;
+use protos::addressbook::AddressBook;
 
 fn handle_connection(stream: TcpStream) {
     log::info!("Handling the connection...");
-    let mut reader = BufReader::new(&stream);
+    let mut reader = BufReader::new(stream);
     loop {
-        let mut text = String::new();
-        match reader.read_line(&mut text) {
-            Ok(result) => {
-                log::info!("Read: len = {}, data = {}", result, text);
+        /* hardcoding protobuf size as 63*/
+        let mut buff = vec![0; 63];
+        if reader.read_exact(&mut buff).is_err() {
+            log::info!("Error reading message");
+            break;
+        }
+
+        match AddressBook::parse_from_bytes(&buff[..]) {
+            Ok(book) => {
+                log::info!("read book = {}", book);
             }
             Err(e) => {
-                log::info!("Read failed. Err({})", e);
+                log::info!("Unable to parse bytes. Err({})", e);
             }
         }
     }
