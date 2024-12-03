@@ -1,0 +1,1 @@
+1. protoc --rs_out protos/ stats.proto  --experimental_allow_proto3_optional

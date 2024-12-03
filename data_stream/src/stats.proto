@@ -1,0 +1,33 @@
+syntax="proto3";
+package stats_collector;
+
+
+message Cpu {
+    /* current CPU utilization. In percent */
+    uint32 cpu_percent = 1;
+    /* Current CPU temperation. In celcius. */
+    float temp = 2;
+}
+
+message Memory {
+    /* All are in Kilobytes */
+    uint32 total_memory = 1;
+    uint32 used_memory = 2;
+    uint32 cached = 3;
+}
+
+message DataCollect {
+    /* Some dummy data, as I don't know what should be sent */
+    optional uint32 pulse = 1;
+    optional uint32 bp = 2;
+    optional uint32 temp = 3;
+    optional uint32 oxygen = 4;
+    optional uint32 calories_burnt = 5;
+}
+
+message Statistics {
+    string uuid =1;
+    optional Cpu cpu_stats=2;
+    optional Memory meory_stats=3;
+    DataCollect data=4;
+}
