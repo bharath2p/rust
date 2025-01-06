@@ -17,6 +17,31 @@ struct Cli {
 }
 
 #[derive(Subcommand, Debug)]
+enum Phone {
+    Mobile { number: String },
+    Home { number: String },
+    Work { number: String },
+}
+
+#[derive(Subcommand, Debug)]
+enum Phonebook {
+    Details {
+        name: String,
+        id: i32,
+        email: String,
+    },
+    Mobile {
+        number: String,
+    },
+    Home {
+        number: String,
+    },
+    Work {
+        number: String,
+    },
+}
+
+#[derive(Subcommand, Debug)]
 enum Commands {
     #[command(arg_required_else_help = true)]
     Server {
@@ -30,6 +55,8 @@ enum Commands {
         ip_addr: String,
         // Destination port
         port: u16,
+        #[command(subcommand)]
+        book: Option<Phonebook>,
     },
 }
 
@@ -37,8 +64,12 @@ fn main() {
     femme::start();
     let cli: Cli = Cli::parse();
     match cli.command {
-        Commands::Client { ip_addr, port } => {
-            client::client(ip_addr, port);
+        Commands::Client {
+            ip_addr,
+            port,
+            book,
+        } => {
+            client::client(ip_addr, port, book.expect("REASON"));
         }
         Commands::Server { ip_addr, port } => {
             server::server(ip_addr, port);

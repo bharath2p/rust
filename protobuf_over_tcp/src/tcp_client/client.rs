@@ -1,4 +1,5 @@
 use crate::protos;
+use crate::Phonebook;
 use std::io::BufReader;
 use std::io::Read;
 use std::net::TcpStream;
@@ -27,8 +28,13 @@ fn handle_connection(stream: TcpStream) {
         }
     }
 }
-pub fn client(ip_addr: String, port: u16) {
-    log::info!("Establishing connection to {}:{}", ip_addr, port);
+pub fn client(ip_addr: String, port: u16, book: Phonebook) {
+    log::info!(
+        "Establishing connection to {}:{} to publish {:?}",
+        ip_addr,
+        port,
+        book
+    );
     match TcpStream::connect(format!("{}:{}", ip_addr, port)) {
         Ok(stream) => {
             log::info!("Connection established...");
