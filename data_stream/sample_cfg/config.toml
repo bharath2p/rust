@@ -1,0 +1,10 @@
+[log]
+level = "info"
+# valid inputs: console | file
+log_type = "console"
+# log_file is valid only when log_type is file
+log_file = "/tmp/datastream.log"
+
+[server]
+host = "localhost"
+port = 8080

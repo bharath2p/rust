@@ -10,3 +10,6 @@ Technologies:
 2. Kafka
 3. Protobufs
 
+
+1. cargo add serde --features derive
+   cargo add toml
